@@ -48,7 +48,8 @@ describe('Test Framework', () => {
         // account for Bank Manager is made
         bankManagerInstance = new BankManager(
             'bankManager@email.com',
-            'testing@123'
+            'testing@123',
+            bankBalanceInstance
         );
         
         // expects that isLoggedIn property is set to true
@@ -126,6 +127,6 @@ describe('Test Framework', () => {
     it('should be able for Bank Manager to view overall Bank Balance', () => {
         //Bank Manager logs in and retrieves the overall Bank Balance
         bankManagerInstance.login('bankManager@email.com', 'testing@123');
-        expect(bankManagerInstance.checkCurrentBalance(bankBalanceInstance)).equal(1000500);
+        expect(bankManagerInstance.checkCurrentBalance()).equal(1000500);
     });
 })

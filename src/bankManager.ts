@@ -5,11 +5,13 @@ export class BankManager {
     private _password: string
     private _isLoggedIn: boolean
     private _isAuthorised = true;
+    private _bankBalance: BankBalance;
 
-    constructor(username: string, password: string) {
+    constructor(username: string, password: string, bankBalance: BankBalance) {
         this._username = username;
         this._password = password;
         this._isLoggedIn = true;
+        this._bankBalance = bankBalance;
     }
 
     private get username(): string { return this._username }
@@ -19,6 +21,7 @@ export class BankManager {
     get isLoggedIn(): boolean { return this._isLoggedIn }
     private set isLoggedIn(isLoggedIn: boolean) { this._isLoggedIn = isLoggedIn }
     private get isAuthorised(): boolean { return this._isAuthorised }
+    private get bankBalance(): BankBalance { return this._bankBalance }
 
     login(username: string, password: string) {
         if (username == this.username && password == this.password) {
@@ -30,8 +33,8 @@ export class BankManager {
 
     logOut() { this._isLoggedIn = false }
 
-    checkCurrentBalance(bankBalance: BankBalance) {
+    checkCurrentBalance() {
         if (!this.isLoggedIn) throw Error(`You're not logged in.`)
-        return bankBalance.checkCurrentBalance(this.isAuthorised);
+        return this.bankBalance.checkCurrentBalance(this.isAuthorised);
     }
 }
